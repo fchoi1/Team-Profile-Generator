@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateWebPage = require('./src/generateHTML');
-const { resolvePtr } = require('dns');
+//const { resolvePtr } = require('dns');
 
 
 const questions = [
@@ -9,7 +9,7 @@ const questions = [
         type: 'input',
         name: 'name',
         message: "Enter the employee's name (Required)",
-        validate: input => input ? true :  console.log('Please enter a name')
+        validate: input => input ? true : 'Please enter a name'
     },
     {
         type: 'list',
@@ -20,28 +20,99 @@ const questions = [
     },
     {
         type: 'input',
+        name: 'id',
+        message: "What is the employee's ID? (Required)",
+        validate: input => !isNaN(input) ? true :  'Please enter a valid ID Number'
+    },
+    {
+        type: 'input',
         name: 'email',
         message: "What is the person's email? (Required)",
-        choices: ['Employee', 'Engineer', 'Intern', 'Manager'],
-        validate: input => /\S+@\S+\.\S+/.test(input) ? true :  console.log('\n Please enter a valid email')
+        validate: input => /\S+@\S+\.\S+/.test(input) ? true :  'Please enter a valid email'
     },
 ];
 
-const managerQuestions = []
-const engineerQuestions = [{
-    type: 'input',
-    name: 'github',
-    message: "What is the github account name?",
-    validate: input => input ? true :  console.log('Please enter a name')
-}]
-const internQuestions = []
+const moreEmployees = [
+    {
+        type: 'confirm',
+        name: 'moreEmployees',
+        message: "Add more employees",
+        default: false
+    }
+]
 
+const roleQuestions = {
+    Employee: [],
+    Engineer: [{
+        type: 'input',
+        name: 'github',
+        message: "What is the github account name? (Required)",
+        validate: input => input ? true :  'Please enter a name'
+    }],
+    Intern: [{
+        type: 'input',
+        name: 'school',
+        message: "Which school is the intern from? (Required)",
+        validate: input => input ? true :  'Please enter a school name'
+    }],
+    Manager: [{
+        type: 'input',
+        name: 'offic',
+        message: "What the office number? (Required)",
+        validate: input => !isNaN(input) ? true :  'Please enter a valid Number'
+    }]
+}
 
-const promptMembers = (questionList) => {
+const promptMember = (questionList) => {
+    let employeeObj = {}
     return inquirer.prompt(questionList)
     .then(ans => {
-        console.log(ans)
+        employeeObj = {...employeeObj, ...ans};
+        return inquirer.prompt(roleQuestions[employeeObj.role])
+    })
+    .then(ans => {
+        employeeObj = {...employeeObj, ...ans};
+        return employeeObj;
     })
 }
 
-promptMembers(questions)
+const getEmployeeList = (employeeList=[]) => {
+    return promptMember(questions)
+    .then(employee => {
+        employeeList.push(employee)
+    })
+    // Ask to add more employees
+    .then( () => {
+        return inquirer.prompt(moreEmployees)
+    })
+    .then( ans => {
+        return ans.moreEmployees ? getEmployeeList(employeeList) : employeeList;
+    })
+}
+
+const sentEmployeeList = () => {}
+
+const init = () => {
+    getEmployeeList().then( list => {
+        const employeeList = list;
+
+        // For writing to mock data
+        // fs.writeFile('./data.json', JSON.stringify(employeeList), err => {
+        //     return new Promise((resolve, reject) => {
+        //         return err ? reject(err) :
+        //             resolve({
+        //                 ok: true,
+        //                 message: 'ReadME File Created'
+        //             });
+        //     });
+        // });
+    })
+}
+
+const test = () => {
+    let mockData = fs.readFileSync('data.json');
+    let employeeList = JSON.parse(mockData);
+}
+
+
+test()

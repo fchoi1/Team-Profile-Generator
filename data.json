@@ -1,0 +1,6 @@
+[
+    {"name":"person 1","role":"Engineer","id":"1","email":"eng1@test.com","github":"eng1"},
+    {"name":"person 2","role":"Manager","id":"1","email":"manger1@test.com","office":"1"},
+    {"name":"person 3","role":"Engineer","id":"3","email":"eng2@test.com","github":"eng2"},
+    {"name":"person 4","role":"Intern","id":"4","email":"intern1@test.com","school":"school1"},
+    {"name":"person 5","role":"Employee","id":"5","email":"employee@test.com"}]
