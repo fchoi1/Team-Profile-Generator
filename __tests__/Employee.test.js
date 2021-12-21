@@ -11,19 +11,19 @@ test('Creates a employee object', () => {
 test('Returns name of Employee', () => {
     const employee = new Employee('Person 1', '1', 'some@email.com' )
 
-    expect(employee.getName()).toBe('Person 1');
+    expect(employee.getName()).toMatch('Person 1');
 });
 
 test('Returns Id of Employee', () => {
     const employee = new Employee('Person 1', '1', 'some@email.com' )
 
-    expect(employee.getId()).toBe('1');
+    expect(employee.getId()).toMatch('1');
 });
 
 test('Returns email of Employee', () => {
     const employee = new Employee('Person 1', '1', 'some@email.com' )
 
-    expect(employee.getEmail()).toBe('some@email.com');
+    expect(employee.getEmail()).toMatch('some@email.com');
 });
 
 test('Returns role of Employee', () => {
