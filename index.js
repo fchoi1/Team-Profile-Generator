@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateWebPage = require('./src/generateHTML');
-//const { resolvePtr } = require('dns');
 
 
 const questions = [
