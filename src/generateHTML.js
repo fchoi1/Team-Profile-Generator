@@ -14,7 +14,6 @@ const test = function(){
     const manager = new Manager('Person 5', '5', 'some@email.com', '1' )
 
     let employeeList = [employee, engineer, engineer2, intern, manager ];
-    console.log();
     fs.writeFileSync('../dist/index.html', generateHtml(employeeList));
 }
 
