@@ -33,3 +33,9 @@ test('Returns role of Employee', () => {
 
     expect(employee.getRole()).toBe('Employee');
 });
+
+test('Returns icon html of Employee', () => {
+    const employee = new Employee('Person 1', '1', 'some@email.com' )
+
+    expect(employee.getIcon()).toEqual(expect.stringMatching(/^<i class=..*<\/i>$/));
+});

@@ -21,3 +21,9 @@ test('Gets role of an intern', () => {
     
     expect(intern.getRole()).toBe('Intern');
 });
+
+test('Returns icon html of Intern', () => {
+    const intern = new Intern('Person 1', '1', 'some@email.com', 'school1' )
+
+    expect(intern.getIcon()).toEqual(expect.stringMatching(/^<i class=..*<\/i>$/));
+});
