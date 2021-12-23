@@ -1,7 +1,10 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const Employee = require('./lib/Employee');
+const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
-const generateWebPage = require('./src/generateHTML');
+const Intern = require('./lib/Intern');
+const generateHTML = require('./src/generateHTML');
 
 
 const questions = [
@@ -76,7 +79,7 @@ const promptMember = (questionList) => {
     })
 }
 
-const getEmployeeList = (employeeList=[]) => {
+const getEmployeeList = (employeeRawList=[]) => {
     return promptMember(questions)
     .then(employee => {
         employeeList.push(employee)
@@ -86,7 +89,7 @@ const getEmployeeList = (employeeList=[]) => {
         return inquirer.prompt(moreEmployees)
     })
     .then( ans => {
-        return ans.moreEmployees ? getEmployeeList(employeeList) : employeeList;
+        return ans.moreEmployees ? getEmployeeList(employeeRawList) : employeeRawList;
     })
 }
 
@@ -111,7 +114,12 @@ const init = () => {
 
 const test = () => {
     let mockData = fs.readFileSync('data.json');
-    let employeeList = JSON.parse(mockData);
+    let employeeRawList = JSON.parse(mockData);
+
+    for(employee of employeeRawList){
+        
+    }
+    console.log(employeeRawList)
 }
 
 

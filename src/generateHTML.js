@@ -109,4 +109,4 @@ const generateCustomRole = function(person){
     </div> ` : '';
 }
 //test()
-modules.exports = generateHtml;
+module.exports = generateHtml;
