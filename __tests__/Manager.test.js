@@ -1,7 +1,8 @@
 const Manager = require('../lib/Manager')
 
 test('Creates a employee object', () => {
-c
+    const manager = new Manager('Person 1', '1', 'some@email.com', '1' )
+
     expect(manager).toEqual(expect.any(Manager));
 });
 
