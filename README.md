@@ -45,7 +45,7 @@ Here is how you can contribute: Follow me on twitch! <br> You can fork the repo,
   Also in the index.js file. Uncomment out "test()" and comment "init()" to run the program with test data and test html file to see!
 
 ## Walkthrough Videos
-[Sample Walkthrough with Tests](https://watch.screencastify.com/v/yfhDsGbZFHWHLxQrfESZ)
+[Sample Walkthrough with Tests](https://watch.screencastify.com/v/yfhDsGbZFHWHLxQrfESZ)  
 [Sample Walkthrough using Mock Data](https://watch.screencastify.com/v/Zn1Lw8i5NTiPatDNqDaa)
 
 ## Questions
