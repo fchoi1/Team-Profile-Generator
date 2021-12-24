@@ -1,21 +1,4 @@
-const Employee = require('../lib/Employee');
-const Engineer = require('../lib/Engineer');
-const Manager = require('../lib/Manager');
-const Intern = require('../lib/Intern');
-const fs = require('fs');
 const pretty = require('pretty');
-const { builtinModules } = require('module');
-
-const test = function(){
-    const employee = new Employee('Person 1', '1', 'some@email.com' )
-    const engineer = new Engineer('Person 2', '2', 'some@email.com', 'testGithub' )
-    const engineer2 = new Engineer('Person 3', '3', 'some2@email.com', 'testGithub2' )
-    const intern = new Intern('Person 4', '4', 'some@email.com', 'school1' )
-    const manager = new Manager('Person 5', '5', 'some@email.com', '1' )
-
-    let employeeList = [employee, engineer, engineer2, intern, manager ];
-    fs.writeFileSync('../dist/index.html', generateHtml(employeeList));
-}
 
 const generateHtml = function(personList){
     const html =  `
@@ -89,7 +72,7 @@ const generateCustomRole = function(person){
     switch(person.getRole()){
         case 'Engineer':
             customField = person.getGithub();
-            customText = `Github: ${person.getGithub()} `;
+            customText = ` Github: <a href="https://www.github.com/${person.getGithub()}">${person.getGithub()}</a>`;
             customClass = 'github';
             break;
         case 'Manager':
@@ -108,5 +91,5 @@ const generateCustomRole = function(person){
         <span class="employee-${customClass} small"> ${customText} </span>
     </div> ` : '';
 }
-//test()
+
 module.exports = generateHtml;

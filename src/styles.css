@@ -1,0 +1,21 @@
+:root{
+    --font1: 'Open Sans', sans-serif;
+
+    --font2: 'Comic Sans MS', 'Comic Sans', 'cursive';
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    min-height: 20%;
+    font-family: var(--font1); /* Font perference in order */
+
+}
+
+main{
+    font-family: var(--font1); /* Font perference in order */
+}

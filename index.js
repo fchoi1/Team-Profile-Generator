@@ -5,6 +5,7 @@ const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const generateHTML = require('./src/generateHTML');
+const generateHtml = require('./src/generateHTML');
 
 
 const questions = [
@@ -60,7 +61,7 @@ const roleQuestions = {
     }],
     Manager: [{
         type: 'input',
-        name: 'offic',
+        name: 'office',
         message: "What the office number? (Required)",
         validate: input => !isNaN(input) ? true :  'Please enter a valid Number'
     }]
@@ -93,11 +94,45 @@ const getEmployeeList = (employeeRawList=[]) => {
     })
 }
 
-const sentEmployeeList = () => {}
+const createTeamHTML = (classList) => {
+    const teamHTML = generateHtml(classList);
+    // For writing to mock data
+    fs.writeFileSync('./dist/index.html', teamHTML);
+}
+
+const createTeamCSS = () => {
+    fs.copyFileSync('./src/styles.css', './dist/styles.css');
+}
 
 const init = () => {
-    getEmployeeList().then( list => {
-        const employeeList = list;
+    getEmployeeList().then(list => {
+        //console.log(list);
+        const employeeClassList = [];
+        for (person of list){
+            const {name, id, email} = person;
+            switch (person.role){
+                case "Employee":
+                    employeeClassList.push(new Employee(name, id, email));
+                    break;
+                case "Manager":
+                    employeeClassList.push(new Manager(name, id, email, person.office));
+                    break;
+                case "Engineer":
+                    employeeClassList.push(new Engineer(name, id, email, person.github));
+                    break;
+                case "Intern":
+                    employeeClassList.push(new Intern(name, id, email, person.school));
+                    break;
+            }
+        }
+        createTeamHTML(employeeClassList);
+        console.log("HTML created");
+        createTeamCSS();
+        console.log("CSS created");
+
+    });
+}
+
 
         // For writing to mock data
         // fs.writeFile('./data.json', JSON.stringify(employeeList), err => {
@@ -109,21 +144,39 @@ const init = () => {
         //             });
         //     });
         // });
-    })
-}
 
 const test = () => {
     let mockData = fs.readFileSync('data.json');
-    let employeeRawList = JSON.parse(mockData);
+    let list = JSON.parse(mockData);
 
-    for(employee of employeeRawList){
-        
+    const employeeClassList = [];
+    for (person of list){
+        const {name, id, email} = person;
+        switch (person.role){
+            case "Employee":
+                employeeClassList.push(new Employee(name, id, email));
+                break;
+            case "Manager":
+                employeeClassList.push(new Manager(name, id, email, person.office));
+                break;
+            case "Engineer":
+                employeeClassList.push(new Engineer(name, id, email, person.github));
+                break;
+            case "Intern":
+                employeeClassList.push(new Intern(name, id, email, person.school));
+                break;
+        }
     }
-    console.log(employeeRawList)
+    createTeamHTML(employeeClassList);
+    console.log("HTML created");
+    createTeamCSS();
+    console.log("CSS created");
+
+    
 }
 
 
 test()
-
+//init();
 
 
