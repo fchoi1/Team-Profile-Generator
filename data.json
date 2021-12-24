@@ -1,6 +1,13 @@
 [
-    {"name":"person 1","role":"Engineer","id":"1","email":"eng1@test.com","github":"eng1"},
-    {"name":"person 2","role":"Manager","id":"1","email":"manger1@test.com","office":"1"},
-    {"name":"person 3","role":"Engineer","id":"3","email":"eng2@test.com","github":"eng2"},
-    {"name":"person 4","role":"Intern","id":"4","email":"intern1@test.com","school":"school1"},
-    {"name":"person 5","role":"Employee","id":"5","email":"employee@test.com"}]
+    {"name":"Person 1","role":"Engineer","id":"1","email":"engineer1@test.com","github":"engineer1"},
+    {"name":"Person 2","role":"Manager","id":"2","email":"manger1@test.com","office":"1"},
+    {"name":"Person 3","role":"Engineer","id":"3","email":"engineer2@test.com","github":"engineer2"},
+    {"name":"Person 4","role":"Intern","id":"4","email":"intern1@test.com","school":"School 1"},
+    {"name":"Persn 5","role":"Employee","id":"5","email":"employee@test.com"},
+    {"name":"Person 6","role":"Engineer","id":"6","email":"engineer3@test.com","github":"engineer3"},
+    {"name":"Person 7","role":"Manager","id":"7","email":"manger2@test.com","office":"1"},
+    {"name":"Person 8","role":"Engineer","id":"8","email":"engineer4@test.com","github":"engineer4"},
+    {"name":"Person 9","role":"Intern","id":"9","email":"intern2@test.com","school":"School 2"},
+    {"name":"Persn 10","role":"Employee","id":"10","email":"employee2@test.com"}
+
+]

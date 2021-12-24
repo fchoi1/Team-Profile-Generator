@@ -5,8 +5,16 @@ const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const generateHTML = require('./src/generateHTML');
-const generateHtml = require('./src/generateHTML');
 
+const employeeIdList = [];
+
+const checkID = (input) => {
+    if(isNaN(input) || !input) return 'Please enter a valid ID Number'
+
+    if(employeeIdList.indexOf(input) != -1) return 'ID exists already, enter a new one'
+    
+    return true
+}
 
 const questions = [
     {
@@ -26,7 +34,7 @@ const questions = [
         type: 'input',
         name: 'id',
         message: "What is the employee's ID? (Required)",
-        validate: input => !isNaN(input) ? true :  'Please enter a valid ID Number'
+        validate: checkID
     },
     {
         type: 'input',
@@ -63,7 +71,7 @@ const roleQuestions = {
         type: 'input',
         name: 'office',
         message: "What the office number? (Required)",
-        validate: input => !isNaN(input) ? true :  'Please enter a valid Number'
+        validate: input => isNaN(input) || !input ? 'Please enter a valid Office Number' : true
     }]
 }
 
@@ -77,13 +85,14 @@ const promptMember = (questionList) => {
     .then(ans => {
         employeeObj = {...employeeObj, ...ans};
         return employeeObj;
-    })
+    });
 }
 
 const getEmployeeList = (employeeRawList=[]) => {
     return promptMember(questions)
     .then(employee => {
-        employeeList.push(employee)
+        employeeIdList.push(employee.id);
+        employeeRawList.push(employee)
     })
     // Ask to add more employees
     .then( () => {
@@ -91,24 +100,13 @@ const getEmployeeList = (employeeRawList=[]) => {
     })
     .then( ans => {
         return ans.moreEmployees ? getEmployeeList(employeeRawList) : employeeRawList;
-    })
+    });
 }
 
-const createTeamHTML = (classList) => {
-    const teamHTML = generateHtml(classList);
-    // For writing to mock data
-    fs.writeFileSync('./dist/index.html', teamHTML);
-}
 
-const createTeamCSS = () => {
-    fs.copyFileSync('./src/styles.css', './dist/styles.css');
-}
-
-const init = () => {
-    getEmployeeList().then(list => {
-        //console.log(list);
-        const employeeClassList = [];
-        for (person of list){
+const createTeamHTML = (employeeList) => {
+    const employeeClassList = [];
+        for (person of employeeList){
             const {name, id, email} = person;
             switch (person.role){
                 case "Employee":
@@ -125,7 +123,19 @@ const init = () => {
                     break;
             }
         }
-        createTeamHTML(employeeClassList);
+    const teamHTML = generateHTML(employeeClassList);
+    // For writing to mock data
+    fs.writeFileSync('./dist/index.html', teamHTML);
+}
+
+const createTeamCSS = () => {
+    fs.copyFileSync('./src/styles.css', './dist/styles.css');
+}
+
+const init = () => {
+    getEmployeeList().then(list => {
+        //console.log(list);
+        createTeamHTML(list);
         console.log("HTML created");
         createTeamCSS();
         console.log("CSS created");
@@ -133,50 +143,20 @@ const init = () => {
     });
 }
 
-
-        // For writing to mock data
-        // fs.writeFile('./data.json', JSON.stringify(employeeList), err => {
-        //     return new Promise((resolve, reject) => {
-        //         return err ? reject(err) :
-        //             resolve({
-        //                 ok: true,
-        //                 message: 'ReadME File Created'
-        //             });
-        //     });
-        // });
-
 const test = () => {
     let mockData = fs.readFileSync('data.json');
     let list = JSON.parse(mockData);
 
-    const employeeClassList = [];
-    for (person of list){
-        const {name, id, email} = person;
-        switch (person.role){
-            case "Employee":
-                employeeClassList.push(new Employee(name, id, email));
-                break;
-            case "Manager":
-                employeeClassList.push(new Manager(name, id, email, person.office));
-                break;
-            case "Engineer":
-                employeeClassList.push(new Engineer(name, id, email, person.github));
-                break;
-            case "Intern":
-                employeeClassList.push(new Intern(name, id, email, person.school));
-                break;
-        }
-    }
-    createTeamHTML(employeeClassList);
+    createTeamHTML(list);
     console.log("HTML created");
     createTeamCSS();
     console.log("CSS created");
-
-    
 }
 
+// unComment to run test code to pull data from data.json
+//test()
 
-test()
-//init();
+// Comment to stop the prompts to use test data
+init();
 
 
