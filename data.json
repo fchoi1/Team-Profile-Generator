@@ -3,7 +3,7 @@
     {"name":"Person 2","role":"Manager","id":"2","email":"manger1@test.com","office":"1"},
     {"name":"Person 3","role":"Engineer","id":"3","email":"engineer2@test.com","github":"engineer2"},
     {"name":"Person 4","role":"Intern","id":"4","email":"intern1@test.com","school":"School 1"},
-    {"name":"Persn 5","role":"Employee","id":"5","email":"employee@test.com"},
+    {"name":"Person 5","role":"Employee","id":"5","email":"employee@test.com"},
     {"name":"Person 6","role":"Engineer","id":"6","email":"engineer3@test.com","github":"engineer3"},
     {"name":"Person 7","role":"Manager","id":"7","email":"manger2@test.com","office":"1"},
     {"name":"Person 8","role":"Engineer","id":"8","email":"engineer4@test.com","github":"engineer4"},

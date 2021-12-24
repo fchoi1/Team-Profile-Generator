@@ -18,17 +18,17 @@ const checkID = (input) => {
 
 const questions = [
     {
-        type: 'input',
-        name: 'name',
-        message: "Enter the employee's name (Required)",
-        validate: input => input ? true : 'Please enter a name'
-    },
-    {
         type: 'list',
         name: 'role',
         message: "What is the person's job position?",
         choices: ['Employee', 'Engineer', 'Intern', 'Manager'],
         default: 'Employee'
+    },
+    {
+        type: 'input',
+        name: 'name',
+        message: "Enter the employee's name (Required)",
+        validate: input => input ? true : 'Please enter a name'
     },
     {
         type: 'input',
