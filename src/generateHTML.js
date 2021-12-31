@@ -29,7 +29,6 @@ const generateHtml = function(personList){
         </main>
     </body>
     </html>`
-
     return pretty(html, {ocd: true});
 }
 

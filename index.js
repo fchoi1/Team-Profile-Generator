@@ -157,6 +157,9 @@ const test = () => {
 //test()
 
 // Comment to stop the prompts to use test data
-init();
+//init();
+
+
+let testEngineer = new Engineer('bob', '1', 'test@test.com', "soemGithub");
 
 
